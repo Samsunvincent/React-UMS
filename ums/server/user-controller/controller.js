@@ -6,9 +6,9 @@ const bcrypt = require('bcrypt')
 const sendemail = require('../util/send-email').sendEmail
 const resetPassword = require('../user-controller/email-templates/set-password').resetPassword
 const fileupload = require('../util/file-upload').fileUpload
-const path = require('path'); 
+const path = require('path');
 const dotenv = require("dotenv");
-const { dataUpload ,  getserverData } = require('../util/file-upload');
+const { dataUpload, getserverData } = require('../util/file-upload');
 
 dotenv.config()
 
@@ -16,31 +16,31 @@ dotenv.config()
 
 
 
-exports.signin  = async function(req,res){
+exports.signin = async function (req, res) {
     try {
-        
+
         let body = req.body;
-        console.log('body from signin',body);
+        console.log('body from signin', body);
 
         let body_user_type = body.userType;
-        console.log("body_user_type",body_user_type);
+        console.log("body_user_type", body_user_type);
 
         let emails = body.email;
-        console.log("email",emails)
+        console.log("email", emails)
 
         let name = body.name;
-        console.log("name",name);
-        
-        
+        console.log("name", name);
+
+
         // let match = await userType.findOne({ user_type : body.user_type});
         // console.log('match',match);
-        
+
         // let id = match._id;
         // body.user_type = id
         // console.log('body.userType',body.user_type)
 
         let image = body.image;
-        console.log("image nnnnn",image);
+        console.log("image nnnnn", image);
 
         if (image) {
             let img_path = await fileupload(image, "user");
@@ -51,50 +51,50 @@ exports.signin  = async function(req,res){
 
         function generateRandomPassword(length) {
             let charset =
-              "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$";
+                "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$";
             let password = "";
-  
+
             for (var i = 0; i < length; i++) {
-              var randomIndex = Math.floor(Math.random() * charset.length);
-              password += charset.charAt(randomIndex);
+                var randomIndex = Math.floor(Math.random() * charset.length);
+                password += charset.charAt(randomIndex);
             }
-  
+
             return password;
-          }
-  
-          var randomPassword = generateRandomPassword(12);
-          console.log('randomPassword',randomPassword);
+        }
+
+        var randomPassword = generateRandomPassword(12);
+        console.log('randomPassword', randomPassword);
 
         // let content = await resetPassword(name,emails,randomPassword)
 
         // await sendemail(emails,"update password",content)
 
 
-  
-          let salt = bcrypt.genSaltSync(10);
-          let password = bcrypt.hashSync(randomPassword, salt);
-          console.log("password0",password);
+
+        let salt = bcrypt.genSaltSync(10);
+        let password = bcrypt.hashSync(randomPassword, salt);
+        console.log("password0", password);
 
 
 
-          let new_body = {
-            name : req.body.name,
-            email : req.body.email,
-            password : password,
-            phone : req.body.phone,
-            age : req.body.age,
-            userType : body_user_type,
-            image : req.body.image
+        let new_body = {
+            name: req.body.name,
+            email: req.body.email,
+            password: password,
+            phone: req.body.phone,
+            age: req.body.age,
+            userType: body_user_type,
+            image: req.body.image
 
-          }
-       
+        }
 
-     
+
+
 
         // let hashed_confirm_Password = bcrypt.hashSync(body.confirm_password,salt);
 
 
-    
+
 
         // body.confirm_password = hashed_confirm_Password;
         // console.log("hashed_confirm_password : ",hashed_confirm_Password);
@@ -102,21 +102,21 @@ exports.signin  = async function(req,res){
         // save to database
 
         let new_user = await users.create(new_body)
-      
+
 
         let response = success_function({
-            success : true,
+            success: true,
             statusCode: 200,
-            message : "user created succesfully"
+            message: "user created succesfully"
         })
         res.status(response.statusCode).send(response)
         return;
     } catch (error) {
-        console.log("error",error)
+        console.log("error", error)
         let response = error_function({
             success: false,
-            statusCode : 400,
-            message : "user creation failed"
+            statusCode: 400,
+            message: "user creation failed"
         })
         res.status(response.statusCode).send(response)
         return;
@@ -222,32 +222,32 @@ exports.signin  = async function(req,res){
 // };
 
 
-exports.getAllData = async function(req,res){
+exports.getAllData = async function (req, res) {
     try {
-        
-        let user_data = await login.find().populate('userType')
-        console.log("user_Data",user_data);
+
+        let user_data = await users.find().populate('userType')
+        console.log("user_Data", user_data);
 
         //JSON GET ALL DATA
 
         // let datas = await getserverData()
 
         let response = success_function({
-            success : true,
+            success: true,
             statusCode: 200,
-            message : "Data fetching successfull",
-            data : user_data
+            message: "Data fetching successfull",
+            data: user_data
         })
         res.status(response.statusCode).send(response)
         return;
 
-        } catch (error) {
-        console.log("error",error);
-        
+    } catch (error) {
+        console.log("error", error);
+
         let response = error_function({
             success: false,
-            statusCode : 400,
-            message : "user fetching failed"
+            statusCode: 400,
+            message: "user fetching failed"
         })
         res.status(response.statusCode).send(response)
         return;
@@ -266,7 +266,7 @@ exports.getAllData = async function(req,res){
 
 //         let parsed_id  = JSON.parse(singleid);
 //         console.log("parsed_id",parsed_id)
-        
+
 
 //         SingleData = await login.findOne({parsed_id :singleid}).populate('userType')
 //         console.log("SingleUser",SingleData);
@@ -287,15 +287,15 @@ exports.getAllData = async function(req,res){
 //         console.log("parseddatra[0",parsed_data[0].id);
 
 //         for(let i=0; i<parsed_data.length; i++){
-           
+
 //             if(parsed_data[i].id == singleid){
-               
+
 //                 Singledata = parsed_data[i];
 //             }
 //         }
 //         console.log("single data",SingleData)
 
-        
+
 
 //         let response = success_function({
 //          success: true,
@@ -305,9 +305,9 @@ exports.getAllData = async function(req,res){
 //      })
 //      res.status(response.statusCode).send(response)
 //      return;
- 
+
 //  } catch (error) {
- 
+
 //      console.log("error : ", error);
 //      let response = error_function({
 //          success: false,
@@ -320,42 +320,42 @@ exports.getAllData = async function(req,res){
 
 // }
 
-exports.getsingle = async function(req,res){
-    
+exports.getsingle = async function (req, res) {
+
     let id = req.params.id;
-    console.log("id from getsingle data",id);
+    console.log("id from getsingle data", id);
 
-    if(id){
-        let singleUser = await login.findOne({_id : id}).populate('userType')
-        console.log("match_id from database",singleUser);
+    if (id) {
+        let singleUser = await users.findOne({ _id: id }).populate('userType')
+        console.log("match_id from database", singleUser);
 
-        if(!singleUser){
+        if (!singleUser) {
             let response = error_function({
-                success : false,
-                statusCode : 400,
-                message : "Something Went Wrong",
-    
+                success: false,
+                statusCode: 400,
+                message: "Something Went Wrong",
+
             });
             res.status(response.statusCode).send(response);
             return;
         }
-        else{
+        else {
             let response = success_function({
-                success : true,
-                statusCode : 200,
-                message : "Single User Fetching Successfull",
-                data : singleUser
+                success: true,
+                statusCode: 200,
+                message: "Single User Fetching Successfull",
+                data: singleUser
             })
             res.status(response.statusCode).send(response);
             return;
 
         }
     }
-    else{
+    else {
         let response = error_function({
-            success : false,
-            statusCode : 400,
-            message : "id is not available",
+            success: false,
+            statusCode: 400,
+            message: "id is not available",
 
         });
         res.status(response.statusCode).send(response);
@@ -363,87 +363,87 @@ exports.getsingle = async function(req,res){
 
 
     }
-  
+
 
 
 }
 
 
-exports.updateUser = async function(req,res){
+exports.updateUser = async function (req, res) {
     try {
         let id = req.params.id;
         let body = req.body;
 
-        if(!body.name) {
+        if (!body.name) {
             let response = error_function({
-                statusCode : 400,
-                message : "name required",
+                statusCode: 400,
+                message: "name required",
             });
             res.status(response.statusCode).send(response);
             return;
         }
-        if(!body.email) {
+        if (!body.email) {
             let response = error_function({
-                statusCode : 400,
-                message : "email required",
+                statusCode: 400,
+                message: "email required",
             });
             res.status(response.statusCode).send(response);
             return;
         }
         let img_path_to_delete;
         let image_to_Delete;
-        if(body.image) {
+        if (body.image) {
             let b64 = body.image;
-            let user = await login.findOne({_id : id});
-            if(user.image){
-                console.log("user : ",user.image);
+            let user = await users.findOne({ _id: id });
+            if (user.image) {
+                console.log("user : ", user.image);
                 img_path_to_delete = user.image.split('/')[2];
-            }else{
+            } else {
                 image_to_Delete = null;
             }
-            let image = await fileupload(b64,"users");
-            console.log("image : ",image);
+            let image = await fileupload(b64, "users");
+            console.log("image : ", image);
             body.image = image;
         }
 
-        await login.updateOne({_id : id}, {$set : body});
+        await users.updateOne({ _id: id }, { $set: body });
 
-        if(body.image){
-            if(image_to_Delete !== null){
+        if (body.image) {
+            if (image_to_Delete !== null) {
                 let image_to_Delete = path.join('./uploads', 'users', img_path_to_delete);
                 fileDelete(image_to_Delete);
             }
         }
 
         let response = success_function({
-            statusCode : 200,
-            message : "user updated successfully"
+            statusCode: 200,
+            message: "user updated successfully"
         });
         res.status(response.statusCode).send(response);
         return;
     } catch (error) {
-        console.log("error : ",error);
+        console.log("error : ", error);
         let response = error_function({
-            statusCode : 400,
-            message : error.message ? error.message : "something went wrong"
+            statusCode: 400,
+            message: error.message ? error.message : "something went wrong"
         });
         res.status(response.statusCode).send(response);
-        return;
-    }
+        return;
+    }
 
 
 }
 
 
 
-exports.deleteUser = async function(req,res){
+exports.deleteUser = async function (req, res) {
     try {
-        
-        let id = req.params.id;
-        console.log("id from delete",id);
 
-        let delete_Data = await login.deleteOne({_id : id});
-        console.log("delete_Data",delete_Data);
+        let id = req.params.id;
+        console.log("id from delete", id);
+
+        let delete_Data = await users.deleteOne({ _id: id });
+        console.log("delete_Data", delete_Data);
 
         let response = success_function({
             success: true,
@@ -465,89 +465,77 @@ exports.deleteUser = async function(req,res){
         return;
     }
 
-    
+
 }
 
-exports.resetPassword = async function(req,res){
+exports.resetPassword = async function (req, res) {
+    try {
+        let _id = req.params.id;
 
-
-try {
-    let _id = req.params.id
-
-
-    let user = await login.findOne({_id});
-    console.log("user",user);
-
-   
-        let passwordMatch =  bcrypt.compareSync(req.body.password,user.password);
-        console.log("password",passwordMatch)
-    
-        if(passwordMatch){
-            
-            let body = req.body
-    
-            let newpassword = req.body.newpassword;
-            console.log("newpassword",newpassword);
-    
-            const salt = bcrypt.genSaltSync(10) 
-    
-            const hashed_Password = await bcrypt.hash(newpassword,salt);
-            console.log("hashed_password",hashed_Password);
-    
-            body.password = hashed_Password;
-            console.log("body.password",body.password);
-    
-            
-    
-            let updatePassword = await login.updateOne({_id},{$set:{password : body.password}});
-            console.log("updatedpassword",updatePassword);
-    
-            await user.save()
-    
-            if(updatePassword){
-                if (user.isFirstLogin === true) {
-                    user.isFirstLogin = false;
-                    await user.save();
-                }
-                
-            }
-    
-            let response = success_function({
-                success: true,
-                statusCode: 200,
-                message: "password reset successfull",
-                data: updatePassword
-            })
-            res.status(response.statusCode).send(response);
-            return;
-            
-    
-    
-        }
-        else{
+        let user = await users.findOne({ _id });
+        if (!user) {
             let response = error_function({
                 success: false,
                 statusCode: 400,
-                message: "Check your current password",
-        
+                message: 'User not found'
             })
-            res.status(response.statusCode).send(response)
+            res.status(response.statusCode).send(response);
             return;
         }
-   
-} catch (error) {
-    console.log("error",error)
 
-    let response = error_function({
-        success: false,
-        statusCode: 400,
-        message: "password reseting failed",
 
-    })
-    res.status(response.statusCode).send(response)
-    return;
-}
+        let passwordMatch = bcrypt.compareSync(req.body.currentPassword, user.password);
+        if (!passwordMatch) {
+            let response = error_function({
+                success: false,
+                statusCode: 400,
+                message: 'Incorrect current password'
+            })
+            res.status(response.statusCode).send(response);
+            return;
+        }
 
-    
-}
+
+        // Proceed with password reset if the current password is correct
+        let newpassword = req.body.newPassword;
+        const salt = bcrypt.genSaltSync(10);
+        const hashedPassword = await bcrypt.hash(newpassword, salt);
+
+        let updatePassword = await users.updateOne({ _id }, { $set: { password: hashedPassword } });
+        if (updatePassword.nModified === 0) {
+            let response = error_function({
+                success: false,
+                statusCode: 400,
+                message: 'Failed to update password'
+            })
+            res.status(response.statusCode).send(response);
+            return;
+        }
+
+
+        if (user.isFirstLogin) {
+            user.isFirstLogin = false;
+            await user.save();
+        }
+
+        let response = success_function({
+            success: true,
+            statusCode: 200,
+            message: "password reset successfull"
+        });
+        res.status(response.statusCode).send(response);
+        return;
+
+    } catch (error) {
+        console.log("Error:", error);
+        let response = error_function({
+            success: false,
+            statusCode: 400,
+            message: 'password reset failed'
+        })
+        res.status(response.statusCode).send(response);
+        return;
+    }
+};
+
 

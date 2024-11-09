@@ -54,7 +54,8 @@ function Login() {
           navigate(`/adminComponent?login=${id}&id=${id}`);
         }
       } else {
-        console.log("First login. Handle as needed.");
+      alert('First login. Reset your password redirecting to reset password ....')
+      navigate(`/ResetPassword?logn=${id}&id=${id}`)
       }
       
     } catch (error) {

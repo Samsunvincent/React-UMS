@@ -3,8 +3,8 @@ import Login from "./Components/Pages/Login/Login"
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./Components/Pages/Login/Login.css"
 import React from "react";
-// import AddUser from "./Components/Pages/AddUser/AddUser";
-// import "./Components/Pages/AddUser/AddUser.css"
+import AddUser from "./Components/Pages/AddUser/AddUser";
+import "./Components/Pages/AddUser/AddUser.css"
 import AdminComponent from "./Components/Pages/Admin/adminComponent"
 import "./Components/Pages/Admin/adminComponent.css"
 import EmployeeComponent from "./Components/Pages/Employee/EmployeeComponent"
@@ -13,6 +13,9 @@ import "./Components/Pages/Employee/EmployeeComponent.css"
 // import "./Components/Pages/ForgotPassword/ForgotPasswordComponent.css"
 // import ProfileComponent from "./Components/Pages/Profile/ProfileComponent"
 // import "./Components/Pages/Profile/ProfileComponent.css"
+import ResetPassword from './Components/Pages/ResetPassword/ResetPassword';
+import "./Components/Pages/ResetPassword/ResetPassword.css"
+
 
 function App() {
 
@@ -24,6 +27,8 @@ function App() {
     <Route path='/' exact element={<Login/>}/>
     <Route path='/EmployeeComponent' exact element={<EmployeeComponent/>}/>
     <Route path='/adminComponent' exact element={<AdminComponent/>}/>
+    <Route path='/resetPassword' exact element={<ResetPassword/>}/>
+    <Route path='/AddUser' exact element={<AddUser/>}/>
 
     </Routes>
   </Router>
