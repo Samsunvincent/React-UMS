@@ -15,6 +15,11 @@ import "./Components/Pages/Employee/EmployeeComponent.css"
 // import "./Components/Pages/Profile/ProfileComponent.css"
 import ResetPassword from './Components/Pages/ResetPassword/ResetPassword';
 import "./Components/Pages/ResetPassword/ResetPassword.css"
+import ViewUser from './Components/Pages/ViewUser/ViewUser';
+import "./Components/Pages/ViewUser/ViewUser.css"
+import UpdateUser from './Components/Pages/UpdateUser/UpdateUser';
+import "./Components/Pages/UpdateUser/UpdateUser.css"
+
 
 
 function App() {
@@ -29,6 +34,8 @@ function App() {
     <Route path='/adminComponent' exact element={<AdminComponent/>}/>
     <Route path='/resetPassword' exact element={<ResetPassword/>}/>
     <Route path='/AddUser' exact element={<AddUser/>}/>
+    <Route path='/ViewUser' exact element={<ViewUser/>}/>
+    <Route path='/UpdateUser' exact element={<UpdateUser/>}/>
 
     </Routes>
   </Router>
@@ -38,6 +45,7 @@ function App() {
       {/* <EmployeeComponent/> */}
       {/* <ForgotPasswordComponent/> */}
       {/* <ProfileComponent/> */}
+      {/* <ViewUser/> */}
     </>
   )
 }

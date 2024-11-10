@@ -67,7 +67,7 @@ exports.accessControl = async function (access_types,req,res,next){
                         // req.params = id;
                         // console.log("req.params",req.params);
 
-                        let user_type = user.userType.user_type;
+                        let user_type = user.userType;
                         console.log('user_type',user_type);
 
                         let allowed = access_types.split(",").map((obj)=>control_data[obj]);

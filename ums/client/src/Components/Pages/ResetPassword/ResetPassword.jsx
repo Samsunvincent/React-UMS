@@ -57,7 +57,8 @@ export default function ResetPassword() {
 
 
   return (
-    <div className="password-reset-container">
+    <div className=" position-absolute top-50 start-50 translate-middle ">
+    <div className="password-reset-container ">
       <div className="password-reset-box">
         <h2>Reset Password</h2>
         <form onSubmit={resetPassword}>
@@ -88,6 +89,7 @@ export default function ResetPassword() {
           </div>
         </form>
       </div>
+    </div>
     </div>
   );
 }
