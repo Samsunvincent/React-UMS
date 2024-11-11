@@ -1,22 +1,67 @@
+import axios from "axios";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
+const ProfileComponent = () => {
+    const [profile, setProfile] = useState(null); // Initialize profile state
+    const navigate = useNavigate(); // Initialize navigate
 
-export default function EmployeeComponent() {
-    const navigate = useNavigate();
+    const fetchProfile = async () => {
+        let params = new URLSearchParams(window.location.search);
+        let id = params.get('id');
+        let token_key = params.get('login');
+        let token = localStorage.getItem(token_key);
+
+        try {
+            let response = await axios.get(`http://localhost:3000/user/${id}`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+            });
+            console.log('Response Data:', response.data); // Log full response data
+
+            // Set profile data using the nested field `response.data.data`
+            setProfile(response.data.data);
+        } catch (error) {
+            console.log("Error fetching profile:", error);
+        }
+    };
+
+    const welcomeName = async () => {
+        let params = new URLSearchParams(window.location.search);
+        let id = params.get("id");
+        let token_key = params.get('login');
+        let token = localStorage.getItem(token_key);
+
+        try {
+            let response = await axios.get(`http://localhost:3000/user/${id}`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+            });
+            console.log('Response Data:', response.data); // Log full response data
+
+            // Set profile data using the nested field `response.data.data`
+            setProfile(response.data.data);
+        } catch (error) {
+            console.log("Error fetching profile:", error);
+        }
+    };
 
     const signout = () => {
-        // Get the token_key from URL parameters (if needed)
         let params = new URLSearchParams(window.location.search);
         let token_key = params.get('login');
-        
-        // Remove token from localStorage
         localStorage.removeItem(token_key);
-    
-        // Optionally, redirect to the login page after signout
-        navigate('/'); // Redirecting to login page (you may want to change the path based on your routing setup)
+        navigate('/'); // Redirecting to login page
     };
-    
+
+    useEffect(() => {
+        welcomeName(); // Fetch profile data on component mount
+    }, []);
+
     return (
         <>
             <div className='bg-dark'>
@@ -30,18 +75,26 @@ export default function EmployeeComponent() {
                             <div>About</div>
                             <div>Contact</div>
                             <div>
-                                <button onClick={() => Profile()} className="button-style">
-                                    Profile
-                                </button>
+                                <button onClick={fetchProfile} className="button-style">Profile</button>
                             </div>
                             <div>
-                                <button onClick={() => signout()}>Sign Out</button>
+                                <button onClick={signout}>Sign Out</button>
                             </div>
                         </div>
                     </div>
                 </nav>
-                <div id="welcome-container" />
+                <div id="welcome-container">
+                    <div className="text-white p-5 fs-3">
+                        WELCOME {profile?.name || 'Guest'} {/* Display profile name or 'Guest' */}
+                    </div>
+                    <div className="text-white set-welcome px-5 fs-4">
+                        We are thrilled to have you as part of our growing family! At ABC, we believe that our success stems from the collective contributions of each and every one of you. Your skills, passion, and dedication are key to driving us forward.
+                        We are committed to fostering an environment where you can thrive, learn, and grow both personally and professionally. Here, we value collaboration, innovation, and a shared vision for excellence.                
+                    </div>
+                </div>
             </div>
         </>
     );
-}
+};
+
+export default ProfileComponent;

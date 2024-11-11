@@ -34,28 +34,31 @@ function Login() {
       const parsedResponse = await response.json();
       console.log("parsedResponse", parsedResponse);
 
-      // Destructure and validate parsed response data
       const { token, id, user_type, isFirstLogin } = parsedResponse.data || {};
       if (!token || !id || !user_type) {
         throw new Error("Unexpected response structure.");
       }
 
-      // Save the token in local storage
+      // Save the token in local storage with user ID as the key
       localStorage.setItem(id, token);
+      
+      // Debugging step to check if the token is successfully stored
+      console.log("Token stored:", localStorage.getItem(id)); // ADDED: Log to confirm token storage
 
       // Display the message and navigate based on user type and login status
       if (!isFirstLogin) {
-        
+        alert(parsedResponse.message); // Added alert for successful login
+
         if (user_type === "Employee") {
-          alert(parsedResponse.message)
-          navigate(`/EmployeeComponent?login=${id}&id=${id}`);
+          navigate(`/EmployeeComponent?login=${id}&id=${id}`); // Correct URL for EmployeeComponent
         } else if (user_type === "Admin") {
-          alert(parsedResponse.message)
-          navigate(`/adminComponent?login=${id}&id=${id}`);
+          navigate(`/adminComponent?login=${id}&id=${id}`); // Correct URL for AdminComponent
         }
       } else {
-      alert('First login. Reset your password redirecting to reset password ....')
-      navigate(`/ResetPassword?logn=${id}&id=${id}`)
+        alert('First login. Reset your password redirecting to reset password ....');
+        
+        // FIXED TYPO: Changed `logn` to `login` in the URL for ResetPassword
+        navigate(`/ResetPassword?login=${id}&id=${id}`);
       }
       
     } catch (error) {
