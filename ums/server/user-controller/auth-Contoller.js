@@ -96,7 +96,7 @@ exports.forgetpassword = async function (req, res) {
         let email = req.body.email;
     console.log("email from user", email);
 
-    let check_user = await login.findOne({ email });
+    let check_user = await users.findOne({ email });
     console.log("check_user", check_user);
 
 
@@ -104,16 +104,18 @@ exports.forgetpassword = async function (req, res) {
         let reset_token = jwt.sign({ user_id: check_user._id }, process.env.PRIVATE_KEY, { expiresIn: "10d" })
         // console.log("forgot token",forgot_token);
 
-        let data = await login.updateOne({ email: email }, { $set: { password_token: reset_token } });
+        let data = await users.updateOne({ email: email }, { $set: { password_token: reset_token } });
         console.log("data",data);
 
         if (data.matchedCount === 1 && data.modifiedCount === 1) {
             let reset_link = `${process.env.FRONTEND_URL}?token=${reset_token}`;
+            
             let email_template = await resetpassword(check_user.name, reset_link);
             sendEmail(email, "Forgot password", email_template);
+            
             let response = success_function({
                 statusCode: 200,
-                message: "Email sent successfully",
+                message: `Email sent successfully to ${check_user.email}`,
                 data:reset_token
             });
             res.status(response.statusCode).send(response);
@@ -147,7 +149,7 @@ exports.passwordResetController = async function(req,res){
         decoded = jwt.decode(token);
         console.log('decoded',decoded)
 
-        let user =  await login.findOne({$and : [{_id : decoded.user_id}, {password_token : token}]});
+        let user =  await users.findOne({$and : [{_id : decoded.user_id}, {password_token : token}]});
         console.log("user",user)
 
         
@@ -160,7 +162,7 @@ exports.passwordResetController = async function(req,res){
             let hashed_password = bcrypt.hashSync(newPassword,salt);
             console.log("hashedPassword",hashed_password);
 
-            let data = await login.updateOne(
+            let data = await users.updateOne(
                 {_id : decoded.user_id},
                 { $set:{password : hashed_password,password_token:null}}
             );

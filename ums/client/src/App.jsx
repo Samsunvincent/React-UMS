@@ -9,8 +9,8 @@ import AdminComponent from "./Components/Pages/Admin/adminComponent"
 import "./Components/Pages/Admin/adminComponent.css"
 import EmployeeComponent from "./Components/Pages/Employee/EmployeeComponent"
 import "./Components/Pages/Employee/EmployeeComponent.css"
-// import ForgotPasswordComponent from "./Components/Pages/ForgotPassword/ForgotPasswordComponent"
-// import "./Components/Pages/ForgotPassword/ForgotPasswordComponent.css"
+import ForgotPasswordComponent from "./Components/Pages/ForgotPassword/ForgotPasswordComponent"
+import "./Components/Pages/ForgotPassword/ForgotPasswordComponent.css"
 // import ProfileComponent from "./Components/Pages/Profile/ProfileComponent"
 // import "./Components/Pages/Profile/ProfileComponent.css"
 import ResetPassword from './Components/Pages/ResetPassword/ResetPassword';
@@ -19,7 +19,8 @@ import ViewUser from './Components/Pages/ViewUser/ViewUser';
 import "./Components/Pages/ViewUser/ViewUser.css"
 import UpdateUser from './Components/Pages/UpdateUser/UpdateUser';
 import "./Components/Pages/UpdateUser/UpdateUser.css"
-
+import EmailVerify from './Components/Pages/VerifyEmail/EmailVerify';
+import "./Components/Pages/VerifyEmail/EmailVerify.css"
 
 
 
@@ -37,6 +38,8 @@ function App() {
     <Route path='/AddUser' exact element={<AddUser/>}/>
     <Route path='/ViewUser' exact element={<ViewUser/>}/>
     <Route path='/UpdateUser' exact element={<UpdateUser/>}/>
+    <Route path='/EmailVerify' exact element={<EmailVerify/>}/>
+    <Route path="/reset-password" element={<ForgotPasswordComponent />} />
 
     </Routes>
   </Router>

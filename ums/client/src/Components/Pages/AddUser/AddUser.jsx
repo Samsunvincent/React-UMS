@@ -1,8 +1,11 @@
 import { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
+import {  useNavigate } from "react-router-dom";
+
 
 export default function AddUser() {
+  const navigate = useNavigate();
   const [addData, setAddData] = useState({
     name: '',
     email: '',
@@ -55,6 +58,8 @@ export default function AddUser() {
       });
 
       console.log('User added successfully:', response.data);
+      alert("user create successfully")
+      navigate('/')
       // Add additional logic for success, like redirecting or showing a message
 
 

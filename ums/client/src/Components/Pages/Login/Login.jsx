@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Login() {
 
@@ -115,7 +115,7 @@ function Login() {
                         LOGIN
                       </button>
                     </div>
-                    <a href="./email-verify.html">Forget password?</a>
+                  <Link to={'/EmailVerify'}>forget password</Link>
                   </div>
                 </form>
               </div>

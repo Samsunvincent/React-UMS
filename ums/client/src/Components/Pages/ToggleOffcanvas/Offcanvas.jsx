@@ -1,5 +1,6 @@
 import { useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './OffCanvas.css'; // Add this import for styling
 
 export default function OffCanvas({ profile, loading, fetchProfile }) {
     const [isOffCanvasOpen, setIsOffCanvasOpen] = useState(false);
@@ -16,7 +17,7 @@ export default function OffCanvas({ profile, loading, fetchProfile }) {
             <div>
                 <header>
                     <div
-                        className="user-icon text-light"
+                        className="user-icon "
                         onClick={toggleOffCanvas}
                     >
                         <img
@@ -26,40 +27,47 @@ export default function OffCanvas({ profile, loading, fetchProfile }) {
                         />
                     </div>
                 </header>
-                {isOffCanvasOpen && (
-                    <div className="off-canvas active">
-                        <div className="off-canvas-content">
-                            {loading ? (
-                                <div className="text-center">Loading...</div> // Show loading message
-                            ) : (
-                                <>
-                                    <div id="AdminProfileContainer" />
-                                    <span className="d-flex justify-content-center">Admin</span>
-                                    {profile ? (
-                                        <>
-                                            <div className="pt-5 text-center">Name: {profile.name}</div>
-                                            <div className="text-center">Email: {profile.email}</div>
-                                        </>
-                                    ) : (
-                                        <div className="text-center">No profile data available</div>
-                                    )}
-                                </>
-                            )}
 
-                            <span
-                                onClick={toggleOffCanvas}
-                                className="position-absolute top-0 end-0"
-                            >
-                                <i
-                                    className="fa fa-close"
-                                    style={{
-                                        fontSize: 26,
-                                        color: "red",
-                                        backgroundColor: "rgb(255, 255, 255)",
-                                        padding: 20
-                                    }}
-                                />
-                            </span>
+                {/* Apply blur effect to background when off-canvas is open */}
+                {isOffCanvasOpen && (
+                    <div className="backdrop blur-effect">
+                        <div className="off-canvas active">
+                            <div className="off-canvas-content">
+                                {loading ? (
+                                    <div className="text-center">Loading...</div>
+                                ) : (
+                                    <>
+                                        <div id="AdminProfileContainer" />
+                                        <span className="d-flex justify-content-center">Admin</span>
+                                        {profile ? (
+                                            <>
+                                                <div className="pt-5 text-center  text-dark">Name: {profile.name}</div>
+                                                <div className="text-center text-dark">Email: {profile.email}</div>
+                                                {/* You can add more details as needed */}
+                                                <div className="text-center text-dark">Role: {profile.role}</div>
+                                                <div className="text-center text-dark">Phone: {profile.phone}</div>
+                                            </>
+                                        ) : (
+                                            <div className="text-center">No profile data available</div>
+                                        )}
+                                    </>
+                                )}
+
+                                <span
+                                    onClick={toggleOffCanvas}
+                                    className="position-absolute top-0 end-0"
+                                >
+                                    <i
+                                        className="fa fa-close"
+                                        style={{
+                                            fontSize: 26,
+                                            color: "red",
+                                            backgroundColor: "rgb(255, 255, 255)",
+                                            padding: 20
+                                        }}
+                                    />
+                                </span>
+                            </div>
                         </div>
                     </div>
                 )}
