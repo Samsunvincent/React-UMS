@@ -1,11 +1,11 @@
-/* Reset some default styles
+Reset some default styles
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-body {
+.View_container {
     font-family: Arial, sans-serif;
     background-color: #f4f7f6;
     display: flex;
@@ -15,11 +15,11 @@ body {
     margin: 0;
 }
 
-.container {
+/* .container {
     width: 100%;
     max-width: 900px;
     padding: 20px;
-}
+} */
 
 .profile-card {
     background-color: #fff;
@@ -118,4 +118,4 @@ body {
 
 .btn-signout:hover {
     background-color: #c82333;
-} */
+}

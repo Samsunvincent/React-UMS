@@ -35,9 +35,9 @@ export default function EmailVerify() {
 
   return (
     <>
-      <div className="container container1">
+      <div className="container container1 position-absolute top-50 start-50 translate-middle">
         <div className="logo">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" alt="Google Logo" />
+          {/* <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" alt="Google Logo" /> */}
         </div>
         <div className="verification-box">
           <h1>Email Verification</h1>

@@ -72,41 +72,39 @@ export default function ViewUser() {
     }
 
     return (
-        <div>
-            {singleUser && (
-                <>
-                    <div className="profile-header">
-                        <img
-                            src={singleUser.image || "https://via.placeholder.com/150"}
-                            alt="User Image"
-                            className="profile-img"
-                            onError={(e) => { e.target.src = "https://via.placeholder.com/150"; }}
-                        />
-                     
+        <div className="View_container">
+            <div>
+                {singleUser && (
+                    <>
+                        <div className="profile-header">
+                            <img
+                                src={singleUser.image || "https://via.placeholder.com/150"}
+                                alt="User Image"
+                                className="profile-img"
+                                onError={(e) => { e.target.src = "https://via.placeholder.com/150"; }}
+                            />
 
-                        <h2 className="profile-name">{singleUser.name || "John Doe"}</h2>
-                        <p className="profile-role">{singleUser.role || "Web Developer"}</p>
-                    </div>
-                    <div className="profile-body">
-                        <div className="profile-info">
-                            <h3>Contact Information</h3>
-                            <ul>
-                                <li><strong>Email:</strong> {singleUser.email || "john.doe@example.com"}</li>
-                                <li><strong>Phone:</strong> {singleUser.phone || "(123) 456-7890"}</li>
-                                <li><strong>Age:</strong> {singleUser.age || 30}</li>
-                            </ul>
+
+                            <h2 className="profile-name">{singleUser.name || "John Doe"}</h2>
+                            <p className="profile-role">{singleUser.role || "Web Developer"}</p>
                         </div>
-                        <div className="profile-bio">
-                            <h3>Biography</h3>
-                            <p>{singleUser.bio || "Lorem ipsum dolor sit amet, consectetur adipiscing elit."}</p>
+                        <div className="profile-body">
+                            <div className="profile-info">
+                                <h3>Contact Information</h3>
+                                <ul>
+                                    <li><strong>Email:</strong> {singleUser.email || "john.doe@example.com"}</li>
+                                    <li><strong>Phone:</strong> {singleUser.phone || "(123) 456-7890"}</li>
+                                    <li><strong>Age:</strong> {singleUser.age || 30}</li>
+                                </ul>
+                            </div>
+                            <div className="profile-bio">
+                                <h3>Biography</h3>
+                                <p>{singleUser.bio || "Lorem ipsum dolor sit amet, consectetur adipiscing elit."}</p>
+                            </div>
                         </div>
-                    </div>
-                    <div className="profile-footer">
-                        <button className="btn-edit">Edit Profile</button>
-                        <button className="btn-signout">Sign Out</button>
-                    </div>
-                </>
-            )}
+                    </>
+                )}
+            </div>
         </div>
     );
 }

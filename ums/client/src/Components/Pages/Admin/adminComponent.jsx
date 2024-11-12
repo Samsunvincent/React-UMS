@@ -101,6 +101,7 @@ export default function AdminComponent() {
             if (response.status === 200) {
                 // Refresh users list after deletion
                 getAllUsers();
+                alert(response.data.message)
             }
         } catch (error) {
             console.log('error', error);
