@@ -110,8 +110,8 @@ exports.forgetpassword = async function (req, res) {
         if (data.matchedCount === 1 && data.modifiedCount === 1) {
             let reset_link = `${process.env.FRONTEND_URL}?token=${reset_token}`;
             
-            let email_template = await resetpassword(check_user.name, reset_link);
-            sendEmail(email, "Forgot password", email_template);
+            // let email_template = await resetpassword(check_user.name, reset_link);
+            // sendEmail(email, "Forgot password", email_template);
             
             let response = success_function({
                 statusCode: 200,

@@ -130,7 +130,7 @@ export default function AdminComponent() {
                                 <div>
                                     <header>
                                         <div
-                                            className="user-icon text-light"
+                                            className="user-icon text-light "
                                             onClick={toggleOffCanvas}
                                         >
                                             <img

@@ -59,7 +59,7 @@ export default function AddUser() {
 
       console.log('User added successfully:', response.data);
       alert("user create successfully")
-      navigate('/')
+      navigate('/adminComponent')
       // Add additional logic for success, like redirecting or showing a message
 
 
