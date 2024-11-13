@@ -2,7 +2,9 @@ import axios from "axios";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import OffCanvas from '../ToggleOffcanvas/Offcanvas'; // Import OffCanvas component
+import OffCanvas from '../ToggleOffcanvas/Offcanvas';
+import "../ToggleOffcanvas/Offcanvas.css"
+
 
 const ProfileComponent = () => {
     const [profile, setProfile] = useState(null); // Initialize profile state

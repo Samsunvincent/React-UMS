@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
-import {  useNavigate } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
 
 export default function AddUser() {
   const navigate = useNavigate();
@@ -12,12 +11,12 @@ export default function AddUser() {
     phone: '',
     age: '',
     userType: 'Employee', // default value
-    image: null
+    image: '' // Will hold Base64 string
   });
 
   const handleInputChange = (e) => {
     const { name, value, type } = e.target;
-  
+
     if (type === "file") {
       const file = e.target.files[0];
       if (file) {
@@ -25,7 +24,7 @@ export default function AddUser() {
         reader.onloadend = () => {
           setAddData((prevData) => ({
             ...prevData,
-            [name]: reader.result, // Set the base64 string as the image value
+            image: reader.result // Set Base64 string for the image
           }));
         };
         reader.readAsDataURL(file);
@@ -37,34 +36,30 @@ export default function AddUser() {
       }));
     }
   };
-  
+
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     try {
-      let params = new URLSearchParams(window.location.search);
-      let token_key = params.get('login');
-      let token = localStorage.getItem(token_key);
+      const params = new URLSearchParams(window.location.search);
+      const token_key = params.get('login');
+      const token = localStorage.getItem(token_key);
 
-      const formData = new FormData();
-      for (let key in addData) {
-        formData.append(key, addData[key]);
-      }
-
+      // Send data as application/json
       const response = await axios.post('http://localhost:3000/signin', addData, {
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
+          'Authorization': `Bearer ${token}`,
         },
       });
 
       console.log('User added successfully:', response.data);
-      alert("user create successfully")
-      navigate('/adminComponent')
-      // Add additional logic for success, like redirecting or showing a message
+      alert("User created successfully");
 
-
+      // Navigate back to AdminComponent with token
+      navigate(`/adminComponent?login=${token_key}`);
     } catch (error) {
       console.error('Error adding user:', error);
+      alert("Failed to create user. Please try again.");
     }
   };
 
@@ -129,21 +124,6 @@ export default function AddUser() {
                 value={addData.age}
                 onChange={handleInputChange}
               />
-{/* 
-              <label htmlFor="usertype" className="text-white">
-                User Type:
-              </label>
-              <select
-                id="usertype"
-                name="usertype"
-                className="pt-3"
-                value={addData.usertype}
-                onChange={handleInputChange}
-                required
-              >
-                <option value="Admin">Admin</option>
-                <option value="Employee">Employee</option>
-              </select> */}
 
               <div>
                 <input type="submit" className="form-btna" value="Sign Up" />

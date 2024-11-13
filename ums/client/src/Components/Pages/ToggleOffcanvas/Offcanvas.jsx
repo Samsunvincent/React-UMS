@@ -1,6 +1,6 @@
 import { useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './OffCanvas.css'; // Add this import for styling
+import "../ToggleOffcanvas/Offcanvas.css"
 
 export default function OffCanvas({ profile, loading, fetchProfile }) {
     const [isOffCanvasOpen, setIsOffCanvasOpen] = useState(false);
@@ -41,11 +41,17 @@ export default function OffCanvas({ profile, loading, fetchProfile }) {
                                         <span className="d-flex justify-content-center">Admin</span>
                                         {profile ? (
                                             <>
-                                                <div className="pt-5 text-center  text-dark">Name: {profile.name}</div>
+                                                <div className=" text-center  ">
+                                                    <img src={`http://localhost:3000/${profile.image}`} alt="" className="rounded-circle text-center" style={{ width: "80px" }}/>
+
+                                                </div>
+
+                                                <div className="pt-3 text-center  text-dark">Name: {profile.name}</div>
                                                 <div className="text-center text-dark">Email: {profile.email}</div>
                                                 {/* You can add more details as needed */}
                                                 <div className="text-center text-dark">Role: {profile.role}</div>
                                                 <div className="text-center text-dark">Phone: {profile.phone}</div>
+                                                <div><button className="reset-password-button">reset password</button></div>
                                             </>
                                         ) : (
                                             <div className="text-center">No profile data available</div>
