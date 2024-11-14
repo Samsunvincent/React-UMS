@@ -50,7 +50,7 @@ input[type=text] {
     color: #ECF0F5;
 }
 
-input[type=password] {
+input[type="password"] {
     background-color: #1A2226;
     border: none;
     border-bottom: 2px solid #0DB8DE;
@@ -397,4 +397,13 @@ input.form-btna:hover{
     border: 2px solid rgba(0, 0, 0, 0);
     color: whitesmoke;
     font-size: 15px;
+}
+
+.input-group{
+  position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    width: 72%;
+    margin: auto;
 }

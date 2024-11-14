@@ -1,9 +1,11 @@
 import { useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "../ToggleOffcanvas/Offcanvas.css"
+import {  useNavigate } from "react-router-dom";
 
 export default function OffCanvas({ profile, loading, fetchProfile }) {
     const [isOffCanvasOpen, setIsOffCanvasOpen] = useState(false);
+    const navigate = useNavigate();
 
     const toggleOffCanvas = () => {
         setIsOffCanvasOpen(!isOffCanvasOpen);
@@ -11,6 +13,17 @@ export default function OffCanvas({ profile, loading, fetchProfile }) {
             fetchProfile(); // Fetch profile when opening the canvas
         }
     };
+    const loginnedResetNavigation = () =>{
+
+        let params = new URLSearchParams(window.location.search);
+
+        let id = params.get('id');
+        let token_key = params.get('login');
+
+        console.log("id",id);
+        console.log('token_key',token_key);
+        navigate(`/LoginReset?id=${id}&login=${token_key}`)
+    }
 
     return (
         <>
@@ -51,7 +64,7 @@ export default function OffCanvas({ profile, loading, fetchProfile }) {
                                                 {/* You can add more details as needed */}
                                                 <div className="text-center text-dark">Role: {profile.role}</div>
                                                 <div className="text-center text-dark">Phone: {profile.phone}</div>
-                                                <div><button className="reset-password-button">reset password</button></div>
+                                                <div className="text-center"><button onClick={loginnedResetNavigation} className="reset-password-button btn ">Reset Password</button></div>
                                             </>
                                         ) : (
                                             <div className="text-center">No profile data available</div>

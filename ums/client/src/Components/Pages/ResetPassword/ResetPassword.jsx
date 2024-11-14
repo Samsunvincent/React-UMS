@@ -35,7 +35,7 @@ export default function ResetPassword() {
         const response = await axios.put(`http://localhost:3000/passwordreset/${id}`, passwords, {
             headers: {
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
+                'Authorization': `Bearer ${token}`,
             },
         });
         console.log("response", response);
@@ -57,39 +57,42 @@ export default function ResetPassword() {
 
 
   return (
-    <div className=" position-absolute top-50 start-50 translate-middle ">
-    <div className="password-reset-container ">
-      <div className="password-reset-box">
-        <h2>Reset Password</h2>
-        <form onSubmit={resetPassword}>
-          <div className="password-input-group">
-            <label htmlFor="current-password">Current Password</label>
-            <input
-              type="password"
-              id="current-password"
-              name="currentPassword"
-              value={passwords.currentPassword}
-              onChange={handleResetInputChange}
-              required
-            />
-          </div>
-          <div className="password-input-group">
-            <label htmlFor="new-password">New Password</label>
-            <input
-              type="password"
-              id="new-password"
-              name="newPassword"
-              value={passwords.newPassword}
-              onChange={handleResetInputChange}
-              required
-            />
-          </div>
-          <div className="password-submit-btn">
-            <button type="submit">Reset Password</button>
-          </div>
-        </form>
-      </div>
+    <div className="reset-password-wrapper">
+  <div className="password-reset-container">
+    <div className="password-reset-box">
+      <h2 className="reset-title">Reset Password</h2>
+      <form onSubmit={resetPassword}>
+        <div className="password-input-group">
+          <label htmlFor="current-password" className="input-label">Current Password</label>
+          <input
+            type="password"
+            id="current-password"
+            name="currentPassword"
+            className="password-input"
+            value={passwords.currentPassword}
+            onChange={handleResetInputChange}
+            required
+          />
+        </div>
+        <div className="password-input-group">
+          <label htmlFor="new-password" className="input-label">New Password</label>
+          <input
+            type="password"
+            id="new-password"
+            name="newPassword"
+            className="password-input"
+            value={passwords.newPassword}
+            onChange={handleResetInputChange}
+            required
+          />
+        </div>
+        <div className="password-submit-btn">
+          <button type="submit" className="submit-btn">Reset Password</button>
+        </div>
+      </form>
     </div>
-    </div>
+  </div>
+</div>
+
   );
 }

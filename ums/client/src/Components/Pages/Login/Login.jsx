@@ -2,10 +2,10 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 function Login() {
-
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
+  const [showPassword, setShowPassword] = useState(false); // Added state to control password visibility
   const navigate = useNavigate();
 
   const login = async (e) => {
@@ -15,7 +15,7 @@ function Login() {
       email: email,
       password: password
     };
-    
+
     console.log('data', data);
 
     try {
@@ -41,29 +41,27 @@ function Login() {
 
       // Save the token in local storage with user ID as the key
       localStorage.setItem(id, token);
-      
+
       // Debugging step to check if the token is successfully stored
-      console.log("Token stored:", localStorage.getItem(id)); // ADDED: Log to confirm token storage
+      console.log("Token stored:", localStorage.getItem(id));
 
       // Display the message and navigate based on user type and login status
       if (!isFirstLogin) {
-        alert(parsedResponse.message); // Added alert for successful login
+        alert(parsedResponse.message);
 
         if (user_type === "Employee") {
-          navigate(`/EmployeeComponent?login=${id}&id=${id}`); // Correct URL for EmployeeComponent
+          navigate(`/EmployeeComponent?login=${id}&id=${id}`);
         } else if (user_type === "Admin") {
-          navigate(`/adminComponent?login=${id}&id=${id}`); // Correct URL for AdminComponent
+          navigate(`/adminComponent?login=${id}&id=${id}`);
         }
       } else {
         alert('First login. Reset your password redirecting to reset password ....');
-        
-        // FIXED TYPO: Changed `logn` to `login` in the URL for ResetPassword
         navigate(`/ResetPassword?login=${id}&id=${id}`);
       }
-      
+
     } catch (error) {
       console.error("Error:", error);
-      setError("Login failed. Please try again.");
+      setError("Login failed. Please try again check your credentials.");
     }
   };
 
@@ -94,16 +92,27 @@ function Login() {
                   </div>
                   <div className="form-group">
                     <label className="form-control-label">PASSWORD</label>
-                    <input
-                      type="password"
-                      className="form-control"
-                      name="password"
-                      id="password"
-                      placeholder="password"
-                      required
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                    />
+                    <div className="input-group">
+                      <input
+                        type={showPassword ? "text" : "password"} // Toggle password visibility
+                        className="form-control"
+                        name="password"
+                        id="password"
+                        placeholder="password"
+                        required
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                      />
+                      <div className="input-group-append">
+                        <button
+                          type="button"
+                          className="btn btn-outline-secondary"
+                          onClick={() => setShowPassword(!showPassword)} // Toggle password visibility
+                        >
+                          <i className={showPassword ? "fa fa-eye-slash" : "fa fa-eye"}></i>
+                        </button>
+                      </div>
+                    </div>
                   </div>
                   <div className="col-lg-12 loginbttm">
                     <div className="col-lg-6 login-btm login-text">
@@ -115,7 +124,7 @@ function Login() {
                         LOGIN
                       </button>
                     </div>
-                  <Link to={'/EmailVerify'}>forget password</Link>
+                    <Link to={'/EmailVerify'}>Forget password</Link>
                   </div>
                 </form>
               </div>

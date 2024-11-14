@@ -32,26 +32,29 @@ export default function ForgotPasswordComponent() {
     };
 
     return (
-        <form onSubmit={passwordChange}>
-            <div>
-                <label>New Password:</label>
-                <input
-                    type="password"
-                    value={newPassword}
-                    onChange={(e) => setNewPassword(e.target.value)}
-                    required
-                />
-            </div>
-            <div>
-                <label>Confirm Password:</label>
-                <input
-                    type="password"
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                    required
-                />
-            </div>
-            <button type="submit">Change Password</button>
-        </form>
+        <form onSubmit={passwordChange} className="password-form">
+    <div className="form-group">
+        <label className="form-label">New Password:</label>
+        <input
+            type="password"
+            className="form-input"
+            value={newPassword}
+            onChange={(e) => setNewPassword(e.target.value)}
+            required
+        />
+    </div>
+    <div className="form-group">
+        <label className="form-label">Confirm Password:</label>
+        <input
+            type="password"
+            className="form-input"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            required
+        />
+    </div>
+    <button type="submit" className="form-button">Change Password</button>
+</form>
+
     );
 }

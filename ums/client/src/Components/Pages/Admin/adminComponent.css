@@ -421,8 +421,8 @@ th, td {
 .form form 
 lable,
 input[type="text"],
-input[type="email"],
-input[type="password"] {
+input[type="email"]
+ {
   display: block;
 }
 
@@ -441,7 +441,7 @@ p.terms {
 .form form 
 input[type="text"],
 input[type="email"], 
-input[type="password"],
+
 input[type="number"] {
   color: #fff;
   /* width: 100%; */

@@ -21,6 +21,9 @@ import UpdateUser from './Components/Pages/UpdateUser/UpdateUser';
 import "./Components/Pages/UpdateUser/UpdateUser.css"
 import EmailVerify from './Components/Pages/VerifyEmail/EmailVerify';
 import "./Components/Pages/VerifyEmail/EmailVerify.css"
+import LoginReset from './Components/Pages/LoginnedReset/LoginReset';
+import "./Components/Pages/LoginnedReset/LoginReset.css"
+
 
 
 
@@ -40,6 +43,7 @@ function App() {
     <Route path='/UpdateUser' exact element={<UpdateUser/>}/>
     <Route path='/EmailVerify' exact element={<EmailVerify/>}/>
     <Route path="/reset-password" element={<ForgotPasswordComponent />} />
+    <Route path="/LoginReset" element={<LoginReset/>}/>
 
     </Routes>
   </Router>

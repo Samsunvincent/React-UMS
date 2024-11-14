@@ -72,13 +72,13 @@ export default function ViewUser() {
     }
 
     return (
-        <div className="View_container">
+        <div className="View_container text-center">
             <div>
                 {singleUser && (
                     <>
                         <div className="profile-header">
                             <img
-                                src={singleUser.image || "https://via.placeholder.com/150"}
+                                src={`http://localhost:3000/${singleUser.image}`} 
                                 alt="User Image"
                                 className="profile-img"
                                 onError={(e) => { e.target.src = "https://via.placeholder.com/150"; }}
